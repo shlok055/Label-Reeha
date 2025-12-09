@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Label Reeha</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#1a1a1a',
+                        'brand-gold': '#d4af37',
+                        'brand-cream': '#f9f7f2',
+                        'brand-danger': '#ef4444',
+                        'brand-black': '#050505',
+                        'brand-secondary': '#111',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                        display: ['"Syne"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+        
+        body {
+            background-color: #f9f7f2;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* Style the file input button for a clean look */
+        .file-input-wrapper input[type=file] {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        /* Custom style for product cards */
+        .product-card {
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Custom button for a luxurious touch */
+        .btn-luxury {
+            background-color: #1a1a1a;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-luxury:hover {
+            background-color: #d4af37;
+            color: #1a1a1a;
+        }
+
+        /* Input focus style */
+        .admin-input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 1px #d4af37;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+    
+    <header class="bg-white shadow-lg p-4 flex justify-between items-center sticky top-0 z-20 border-b border-gray-200">
+        <h2 class="font-serif text-3xl text-brand-dark tracking-widest">Label Reeha | Admin</h2>
+        <button id="logout-btn" class="text-sm text-gray-600 hover:text-brand-danger flex items-center space-x-1 transition duration-150 p-2 rounded-md hover:bg-gray-100">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+            <span>Logout</span>
+        </button>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-12 px-6 md:px-12">
+        
+        <h1 class="font-display text-6xl md:text-7xl font-extrabold text-brand-dark mb-12 border-b-2 border-brand-gold pb-4 reveal-up">
+            Catalogue Management
+        </h1>
+
+        <div class="bg-brand-secondary p-6 md:p-10 rounded-lg shadow-xl mb-12 border border-brand-gold/50 reveal-up">
+            <h3 class="font-serif text-3xl text-brand-gold mb-8">Add New Piece to Inventory</h3>
+            <form id="new-product-form" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div>
+                    <div class="mb-4">
+                        <label for="new-product-name" class="block text-sm font-medium text-gray-300 mb-1 uppercase tracking-wider">Product Name</label>
+                        <input type="text" id="new-product-name" name="name" required
+                            class="admin-input w-full px-4 py-2 bg-brand-secondary text-white border border-gray-600 rounded-sm transition">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="new-product-category" class="block text-sm font-medium text-gray-300 mb-1 uppercase tracking-wider">Category</label>
+                        <select id="new-product-category" name="category" required
+                            class="admin-input w-full px-4 py-2 bg-brand-secondary text-white border border-gray-600 rounded-sm transition">
+                            <option value="rings">Rings</option>
+                            <option value="necklaces">Necklaces</option>
+                            <option value="bracelets">Bracelets</option>
+                            <option value="earrings">Earrings</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="mb-4">
+                        <label for="new-product-material" class="block text-sm font-medium text-gray-300 mb-1 uppercase tracking-wider">Material/Description</label>
+                        <input type="text" id="new-product-material" name="material" required
+                            class="admin-input w-full px-4 py-2 bg-brand-secondary text-white border border-gray-600 rounded-sm transition">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="new-product-price" class="block text-sm font-medium text-gray-300 mb-1 uppercase tracking-wider">Price ($)</label>
+                        <input type="number" step="0.01" id="new-product-price" name="price" required
+                            class="admin-input w-full px-4 py-2 bg-brand-secondary text-white border border-gray-600 rounded-sm transition">
+                    </div>
+
+                    <div class="mb-8">
+                        <label for="new-product-image-upload" class="block text-sm font-medium text-gray-300 mb-1 uppercase tracking-wider">Product Image</label>
+                        <div class="file-input-wrapper relative h-12">
+                            <input type="file" id="new-product-image-upload" name="imageFile" accept="image/*" required>
+                            <div class="absolute inset-0 bg-brand-dark border-2 border-dashed border-brand-gold/50 rounded-sm flex items-center justify-center text-sm text-brand-gold/70 hover:border-brand-gold hover:text-brand-gold transition duration-200">
+                                <i data-lucide="image" class="w-4 h-4 mr-2"></i> Click to select image
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">File must be JPG or PNG. Max size 5MB.</p>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full btn-luxury font-medium py-3 rounded-sm uppercase text-sm tracking-widest flex items-center justify-center space-x-2 border border-brand-dark hover:border-brand-gold">
+                        <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+                        <span>Upload Product</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <h3 class="font-serif text-3xl text-brand-dark mb-6 reveal-up">Current Product Inventory</h3>
+        
+        <div class="mb-8 relative max-w-lg reveal-up">
+            <input type="text" id="product-search" placeholder="Search product name, material, or category..."
+                class="w-full bg-white border border-gray-300 px-5 py-3 text-sm focus:outline-none focus:border-brand-gold transition-colors rounded-sm"
+                oninput="renderProducts()">
+            <i data-lucide="search"
+                class="w-4 h-4 absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="product-list">
+            </div>
+        
+        <p id="no-results" class="text-center py-10 text-gray-500 hidden">No products found matching your search.</p>
+        
+    </main>
+    
+    <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 hidden z-30">
+        <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-lg border border-brand-gold/50">
+            <h4 class="font-serif text-2xl mb-6 border-b pb-2 text-brand-gold" id="modal-title">Edit Product</h4>
+            <form id="edit-product-form">
+                <input type="hidden" id="product-id" name="id">
+
+                <div class="mb-4">
+                    <label for="product-name" class="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                    <input type="text" id="product-name" name="name" required
+                        class="admin-input w-full px-3 py-2 border border-gray-300 rounded-sm">
+                </div>
+                <div class="mb-4">
+                    <label for="product-category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                    <select id="product-category" name="category" required
+                        class="admin-input w-full px-3 py-2 border border-gray-300 rounded-sm">
+                        <option value="rings">Rings</option>
+                        <option value="necklaces">Necklaces</option>
+                        <option value="bracelets">Bracelets</option>
+                        <option value="earrings">Earrings</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="product-material" class="block text-sm font-medium text-gray-700 mb-1">Material</label>
+                    <input type="text" id="product-material" name="material" required
+                        class="admin-input w-full px-3 py-2 border border-gray-300 rounded-sm">
+                </div>
+
+                <div class="mb-6">
+                    <label for="product-price" class="block text-sm font-medium text-gray-700 mb-1">Price ($)</label>
+                    <input type="number" step="0.01" id="product-price" name="price" required
+                        class="admin-input w-full px-3 py-2 border border-gray-300 rounded-sm">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="product-image-edit" class="block text-sm font-medium text-gray-700 mb-1">Change Image</label>
+                    <div class="file-input-wrapper relative h-12">
+                        <input type="file" id="product-image-edit" name="imageFileEdit" accept="image/*">
+                         <div class="absolute inset-0 bg-brand-cream border-2 border-dashed border-gray-400 rounded-sm flex items-center justify-center text-sm text-gray-600 hover:border-brand-gold hover:text-brand-dark transition duration-200">
+                                Click to browse new image
+                            </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 border-t pt-4">
+                    <button type="button" id="cancel-modal-btn"
+                        class="px-4 py-2 text-gray-700 border border-gray-300 rounded-sm hover:bg-gray-100 transition">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="btn-luxury font-medium px-4 py-2 rounded-sm border border-brand-dark hover:border-brand-gold">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        lucide.createIcons();
+        gsap.registerPlugin(ScrollTrigger);
+
+        // GSAP Scroll Animations
+        gsap.utils.toArray('.reveal-up').forEach(elem => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: "top 85%"
+                },
+                y: 40,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+        });
+
+        // Hardcoded products data (SIMULATING A DATABASE)
+        let products = [
+            { id: 1, name: "Kintsugi Band", category: "rings", material: "Recycled Silver", price: 320.00, image: "/Assets/greenset.png" },
+            { id: 2, name: "Wabi Pearl", category: "earrings", material: "Baroque Pearl", price: 180.00, image: "/Assets/bluegreen.png" },
+            { id: 3, name: "Eclipse Chain", category: "necklaces", material: "Oxidized Sterling", price: 520.00, image: "/Assets/blueset.png" },
+            { id: 4, name: "The Void Ring", category: "rings", material: "Textured Gold", price: 340.00, image: "Assets/model2zoom.png" },
+            { id: 5, name: "Spine Cuff", category: "bracelets", material: "Raw Brass", price: 280.00, image: "Assets/modelorgzoom.png" },
+            { id: 6, name: "Zenith Necklace", category: "necklaces", material: "18k Gold", price: 650.00, image: "Assets/modelredzoom.png" },
+            { id: 7, name: "Gaia Studs", category: "earrings", material: "White Gold", price: 140.00, image: "Assets/model1.png" },
+            { id: 8, name: "Meridian Bracelet", category: "bracelets", material: "14k Gold", price: 450.00, image: "Assets/goldred.png" },
+            { id: 9, name: "Luna Signet", category: "rings", material: "Sterling Silver", price: 290.00, image: "Assets/redgold.png" },
+            { id: 10, name: "Solar Pendant", category: "necklaces", material: "Gold Vermeil", price: 380.00, image: "Assets/blueset.png" },
+            { id: 11, name: "Nova Hoops", category: "earrings", material: "Gold Plated", price: 210.00, image: "Assets/model1.png" },
+            { id: 12, name: "Orbit Bangle", category: "bracelets", material: "Solid Brass", price: 310.00, image: "Assets/model2zoom.png" },
+        ];
+        
+        const productListEl = document.getElementById('product-list');
+        const newProductForm = document.getElementById('new-product-form');
+        const editProductForm = document.getElementById('edit-product-form');
+        const searchInput = document.getElementById('product-search');
+        const noResults = document.getElementById('no-results');
+        const modal = document.getElementById('product-modal');
+        const logoutBtn = document.getElementById('logout-btn');
+        let nextProductId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+
+        // --- RENDER FUNCTION ---
+        function renderProducts() {
+            productListEl.innerHTML = '';
+            const searchTerm = searchInput.value.toLowerCase();
+            let matchedProducts = [];
+
+            // 1. Filtering products based on search term (name, material, or category)
+            products.forEach(product => {
+                const nameMatch = product.name.toLowerCase().includes(searchTerm);
+                const materialMatch = product.material.toLowerCase().includes(searchTerm);
+                const categoryMatch = product.category.toLowerCase().includes(searchTerm);
+
+                if (nameMatch || materialMatch || categoryMatch) {
+                    matchedProducts.push(product);
+                }
+            });
+
+            // 2. Display results or no results message
+            if (matchedProducts.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            // 3. Render the grid
+            matchedProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card rounded-lg overflow-hidden shadow-md transform translate-y-8 opacity-0';
+                card.id = `product-${product.id}`;
+                card.innerHTML = `
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img src="${product.image}" alt="${product.name}" 
+                            class="w-full h-full object-cover transform hover:scale-105 transition duration-500 ease-in-out">
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-serif text-xl font-semibold mb-1">${product.name}</h4>
+                        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">${product.material}</p>
+                        <p class="text-lg font-bold text-brand-gold mb-4">$${product.price.toFixed(2)}</p>
+                        
+                        <div class="flex justify-between space-x-2 border-t pt-3">
+                            <button data-id="${product.id}" class="edit-btn text-sm text-brand-dark hover:text-brand-gold transition duration-150 flex items-center">
+                                <i data-lucide="pencil" class="w-4 h-4 mr-1"></i>Edit
+                            </button>
+                            <button data-id="${product.id}" class="delete-btn text-sm text-brand-danger hover:text-red-700 transition duration-150 flex items-center">
+                                <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productListEl.appendChild(card);
+                
+                // Animate product card in
+                gsap.to(card, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: "power2.out",
+                    stagger: 0.05,
+                });
+            });
+            lucide.createIcons(); // Re-initialize icons for new cards
+        }
+
+        // --- CREATE PRODUCT (NEW FORM) ---
+        newProductForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const imageFile = document.getElementById('new-product-image-upload').files[0];
+            let imageUrl = '';
+
+            if (imageFile) {
+                 // For demonstration, we create a temporary local URL
+                 imageUrl = URL.createObjectURL(imageFile);
+            }
+
+            const newProduct = {
+                id: nextProductId++,
+                name: document.getElementById('new-product-name').value,
+                category: document.getElementById('new-product-category').value,
+                material: document.getElementById('new-product-material').value,
+                price: parseFloat(document.getElementById('new-product-price').value),
+                image: imageUrl || 'https://via.placeholder.com/400x500/1a1a1a/d4af37?text=New+Piece', // Fallback placeholder
+            };
+
+            products.push(newProduct);
+            renderProducts();
+            newProductForm.reset();
+            alert(`Product "${newProduct.name}" added successfully!`);
+        });
+
+        // --- UPDATE & DELETE (MODAL/CARD ACTIONS) ---
+        
+        function showModal(product) {
+            document.getElementById('product-id').value = product.id;
+            document.getElementById('product-name').value = product.name;
+            document.getElementById('product-category').value = product.category;
+            document.getElementById('product-material').value = product.material;
+            document.getElementById('product-price').value = product.price;
+            document.getElementById('product-image-edit').value = ''; // Clear file input for security/re-upload logic
+            
+            modal.classList.remove('hidden');
+        }
+
+        function hideModal() {
+            modal.classList.add('hidden');
+        }
+
+        // Event delegation for Edit and Delete buttons on the grid
+        productListEl.addEventListener('click', function(e) {
+            const editBtn = e.target.closest('.edit-btn');
+            const deleteBtn = e.target.closest('.delete-btn');
+            
+            if (editBtn) {
+                const productId = parseInt(editBtn.getAttribute('data-id'));
+                const product = products.find(p => p.id === productId);
+                if (product) showModal(product);
+            } else if (deleteBtn) {
+                const productId = parseInt(deleteBtn.getAttribute('data-id'));
+                const product = products.find(p => p.id === productId);
+                if (product) deleteProduct(productId, product.name);
+            }
+        });
+
+        // Edit Modal Form submission
+        editProductForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const id = parseInt(document.getElementById('product-id').value);
+            const imageFile = document.getElementById('product-image-edit').files[0];
+            
+            let data = {
+                name: document.getElementById('product-name').value,
+                category: document.getElementById('product-category').value,
+                material: document.getElementById('product-material').value,
+                price: parseFloat(document.getElementById('product-price').value),
+            };
+
+            if (imageFile) {
+                data.image = URL.createObjectURL(imageFile);
+            }
+
+            updateProduct(id, data);
+            hideModal();
+        });
+
+        // Modal Cancel Button
+        document.getElementById('cancel-modal-btn').addEventListener('click', hideModal);
+
+        function updateProduct(id, data) {
+            const index = products.findIndex(p => p.id === id);
+            if (index !== -1) {
+                products[index] = { ...products[index], ...data };
+                renderProducts();
+                alert(`Product "${data.name}" updated!`);
+            }
+        }
+
+        function deleteProduct(id, name) {
+            if (confirm(`Are you sure you want to delete the product: ${name}?`)) {
+                products = products.filter(p => p.id !== id);
+                renderProducts();
+                alert('Product deleted!');
+            }
+        }
+
+        // --- LOGOUT ---
+        logoutBtn.addEventListener('click', () => {
+             if (confirm("Are you sure you want to log out?")) {
+                window.location.href = 'admin_login.html';
+             }
+        });
+
+        // Initial render
+        renderProducts();
+    </script>
+</body>
+
+</html>
