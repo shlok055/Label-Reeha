@@ -8,11 +8,20 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght=300;400;500&display=swap"
-        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Anonymous+Pro:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -29,20 +38,32 @@
                     },
                     fontFamily: {
                         serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                        display: ['"Syne"', 'sans-serif'],
+                        sans: ['"Lato"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
+        /*
+        ========================================
+        1. GLOBAL AND RESET STYLES
+        ========================================
+        */
+        :root {
+            --bg-color: #050505;
+            --text-color: #e0e0e0;
+            --accent-color: #ffffff;
+        }
+
         body {
+            margin: 0;
+            padding: 0;
             font-family: 'Montserrat', sans-serif;
             color: #1a1a1a;
+            cursor: none;
             background-color: #f9f7f2;
             overflow-x: hidden;
-            cursor: none;
         }
 
         /* Custom Cursor */
@@ -70,7 +91,18 @@
             transition: width 0.2s, height 0.2s, background-color 0.2s;
         }
 
-        /* Header Styles */
+        body.hovering .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-color: #d4af37;
+        }
+
+        /*
+        ========================================
+        2. NAVIGATION BAR STYLES
+        ========================================
+        */
         .header {
             position: sticky;
             top: 0;
@@ -79,21 +111,71 @@
             background-color: rgba(255, 255, 255, 0.95);
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 15px 20px;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* Added transition for smooth hiding */
-            transition: transform 0.4s ease-in-out; 
+        }
+
+        /* LOGO STYLES */
+        .logo a {
+            display: block;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 55px;
+            /* Desktop Height */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+
+        .logo-img:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-border {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 55px;
+            height: 55px;
+            padding: 2px;
+            /* Border thickness */
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b8860b, #d4af37, #f3e5ab, #d4af37, #b8860b);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+            flex-shrink: 0;
+        }
+
+        .logo-border img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .brand-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-left: 12px;
+            background: linear-gradient(135deg, #b8860b, #d4af37, #f3e5ab, #d4af37, #b8860b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .logo a {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #5d4a36;
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            letter-spacing: 1px;
         }
 
         .nav-links {
@@ -102,6 +184,7 @@
             padding: 0;
             display: flex;
             gap: 30px;
+            align-items: center;
         }
 
         .nav-links a {
@@ -231,29 +314,38 @@
                 font-size: 1.5rem;
             }
         }
-        
+
         /* Reveal Effect for Images */
         .reveal-img-container {
             overflow: hidden;
         }
-        
+
         .reveal-img-container img {
             transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         }
-        
+
         .reveal-img-container:hover img {
             transform: scale(1.1);
         }
 
         /* --- Social Icon Colors --- */
-        .icon-insta { color: #E1306C; }
-        .icon-fb { color: #1877F2; }
-        .icon-wa { color: #25D366; }
-        
+        .icon-insta {
+            color: #E1306C;
+        }
+
+        .icon-fb {
+            color: #1877F2;
+        }
+
+        .icon-wa {
+            color: #25D366;
+        }
+
         /* Modal Styles */
         #product-modal {
             backdrop-filter: blur(8px);
-            z-index: 10000; /* Extremely high Z-index to cover navbar */
+            z-index: 10000;
+            /* Extremely high Z-index to cover navbar */
         }
     </style>
 </head>
@@ -265,7 +357,12 @@
 
     <header class="header">
         <div class="logo">
-            <a href="Reeha.html">Label Reeha</a>
+            <a href="index.html">
+                <div class="logo-border">
+                    <img src="Assets/logo.jpeg" alt="Label Reeha" class="logo-img">
+                </div>
+                <span class="brand-name">Label Reeha</span>
+            </a>
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -275,7 +372,7 @@
         </ul>
 
         <ul class="nav-links mobile-menu">
-            <li><a href="Index.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="About.html">About</a></li>
             <li><a href="Shop.html">Shop</a></li>
             <li><a href="Contacts.html">Contact</a></li>
@@ -306,9 +403,12 @@
                 THE CATALOGUE
             </h1>
             <p class="text-center text-lg text-gray-500 max-w-2xl mx-auto mb-12 reveal-up">
-                Every piece from Label Reeha shares a story of artisans, women, rituals, and modern style rooted in timeless tradition. 
-                It celebrates the hidden tales in fabrics, the patterns we cherish, and the deep connection between a woman and her heritage.
-                In an age of mass production and fast fashion, Label Reeha offers emotional, cultural, and artisanal value - a reminder that what we wear should mean something.
+                Every piece from Label Reeha shares a story of artisans, women, rituals, and modern style rooted in
+                timeless tradition.
+                It celebrates the hidden tales in fabrics, the patterns we cherish, and the deep connection between a
+                woman and her heritage.
+                In an age of mass production and fast fashion, Label Reeha offers emotional, cultural, and artisanal
+                value - a reminder that what we wear should mean something.
             </p>
 
             <div
@@ -324,22 +424,9 @@
                     </div>
                 </div>
 
-                <div class="flex flex-wrap justify-center md:justify-end gap-3 w-full md:w-2/3" id="category-tabs">
-                    <button
-                        class="category-tab active bg-brand-dark text-white border border-brand-dark px-4 py-2 text-xs uppercase tracking-widest transition-all hover:bg-brand-gold hover:text-white hover:border-brand-gold hover-trigger"
-                        data-category="all">All</button>
-                    <button
-                        class="category-tab bg-white text-brand-dark border border-gray-300 px-4 py-2 text-xs uppercase tracking-widest transition-all hover:bg-brand-gold hover:text-white hover:border-brand-gold hover-trigger"
-                        data-category="rings">Rings</button>
-                    <button
-                        class="category-tab bg-white text-brand-dark border border-gray-300 px-4 py-2 text-xs uppercase tracking-widest transition-all hover:bg-brand-gold hover:text-white hover:border-brand-gold hover-trigger"
-                        data-category="necklaces">Necklaces</button>
-                    <button
-                        class="category-tab bg-white text-brand-dark border border-gray-300 px-4 py-2 text-xs uppercase tracking-widest transition-all hover:bg-brand-gold hover:text-white hover:border-brand-gold hover-trigger"
-                        data-category="bracelets">Bracelets</button>
-                    <button
-                        class="category-tab bg-white text-brand-dark border border-gray-300 px-4 py-2 text-xs uppercase tracking-widest transition-all hover:bg-brand-gold hover:text-white hover:border-brand-gold hover-trigger"
-                        data-category="earrings">Earrings</button>
+                <div class="flex flex-wrap justify-center md:justify-end gap-3 w-full md:w-2/3" id="category-tabs"
+                    style="display: none;">
+                    <!-- Categories removed -->
                 </div>
             </div>
 
@@ -347,208 +434,232 @@
 
                 <div class="product-item" data-category="rings" data-name="Kintsugi Band">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="/Assets/greenset.png"
-                            alt="Kintsugi Ring" class="w-full h-full object-cover">
+                        <img src="/Assets/greenset.png" alt="Kintsugi Ring" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Kintsugi Band</h3>
                     <p class="text-sm text-brand-gold mb-3">$320.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Recycled Silver</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="earrings" data-name="Wabi Pearl">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="/Assets/bluegreen.png"
-                            alt="Wabi Pearl Earrings" class="w-full h-full object-cover">
+                        <img src="/Assets/bluegreen.png" alt="Wabi Pearl Earrings" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Wabi Pearl</h3>
                     <p class="text-sm text-brand-gold mb-3">$180.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Baroque Pearl</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="necklaces" data-name="Eclipse Chain">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="/Assets/blueset.png"
-                            alt="Eclipse Chain Necklace" class="w-full h-full object-cover">
+                        <img src="/Assets/blueset.png" alt="Eclipse Chain Necklace" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Eclipse Chain</h3>
                     <p class="text-sm text-brand-gold mb-3">$520.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Oxidized Sterling</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="rings" data-name="Void Ring">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/model2zoom.png"
-                            alt="Void Ring" class="w-full h-full object-cover">
+                        <img src="Assets/model2zoom.png" alt="Void Ring" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">The Void Ring</h3>
                     <p class="text-sm text-brand-gold mb-3">$340.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Textured Gold</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="bracelets" data-name="Spine Cuff">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/modelorgzoom.png"
-                            alt="Spine Cuff" class="w-full h-full object-cover">
+                        <img src="Assets/modelorgzoom.png" alt="Spine Cuff" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Spine Cuff</h3>
                     <p class="text-sm text-brand-gold mb-3">$280.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Raw Brass</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="necklaces" data-name="Zenith Necklace">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/modelredzoom.png"
-                            alt="Zenith Necklace" class="w-full h-full object-cover">
+                        <img src="Assets/modelredzoom.png" alt="Zenith Necklace" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Zenith Necklace</h3>
                     <p class="text-sm text-brand-gold mb-3">$650.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">18k Gold</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="earrings" data-name="Gaia Studs">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/model1.png"
-                            alt="Gaia Studs" class="w-full h-full object-cover">
+                        <img src="Assets/model1.png" alt="Gaia Studs" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Gaia Studs</h3>
                     <p class="text-sm text-brand-gold mb-3">$140.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">White Gold</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="bracelets" data-name="Meridian Bracelet">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/goldred.png"
-                            alt="Meridian Bracelet" class="w-full h-full object-cover">
+                        <img src="Assets/goldred.png" alt="Meridian Bracelet" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Meridian Bracelet</h3>
                     <p class="text-sm text-brand-gold mb-3">$450.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">14k Gold</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="rings" data-name="Luna Signet">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/redgold.png"
-                            alt="Luna Signet" class="w-full h-full object-cover">
+                        <img src="Assets/redgold.png" alt="Luna Signet" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Luna Signet</h3>
                     <p class="text-sm text-brand-gold mb-3">$290.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Sterling Silver</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="necklaces" data-name="Solar Pendant">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/blueset.png"
-                            alt="Solar Pendant" class="w-full h-full object-cover">
+                        <img src="Assets/blueset.png" alt="Solar Pendant" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Solar Pendant</h3>
                     <p class="text-sm text-brand-gold mb-3">$380.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Gold Vermeil</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
-                 <div class="product-item" data-category="earrings" data-name="Nova Hoops">
+                <div class="product-item" data-category="earrings" data-name="Nova Hoops">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/model1.png"
-                            alt="Nova Hoops" class="w-full h-full object-cover">
+                        <img src="Assets/model1.png" alt="Nova Hoops" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Nova Hoops</h3>
                     <p class="text-sm text-brand-gold mb-3">$210.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Gold Plated</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="product-item" data-category="bracelets" data-name="Orbit Bangle">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
-                        <img src="Assets/model2zoom.png"
-                            alt="Orbit Bangle" class="w-full h-full object-cover">
+                        <img src="Assets/model2zoom.png" alt="Orbit Bangle" class="w-full h-full object-cover">
                     </div>
                     <h3 class="font-serif text-xl mb-1">Orbit Bangle</h3>
                     <p class="text-sm text-brand-gold mb-3">$310.00</p>
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Solid Brass</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="product-item" data-category="rings" data-name="Onyx Signet">
                     <div class="reveal-img-container aspect-[3/4] mb-4 cursor-pointer product-image-trigger">
                         <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=2070&auto=format&fit=crop"
@@ -559,9 +670,12 @@
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Black Onyx</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
@@ -576,9 +690,12 @@
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Freshwater Pearl</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
@@ -593,9 +710,12 @@
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Lab Diamond</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
@@ -610,9 +730,12 @@
                     <div class="flex justify-between items-center">
                         <span class="text-xs text-gray-500 uppercase tracking-widest">Silver</span>
                         <div class="flex space-x-3">
-                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
-                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
-                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+                            <a href="#" class="icon-insta hover:scale-110 transition-transform hover-trigger"
+                                title="Instagram"><i class="fab fa-instagram text-2xl"></i></a>
+                            <a href="#" class="icon-fb hover:scale-110 transition-transform hover-trigger"
+                                title="Facebook"><i class="fab fa-facebook text-2xl"></i></a>
+                            <a href="#" class="icon-wa hover:scale-110 transition-transform hover-trigger"
+                                title="WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
                         </div>
                     </div>
                 </div>
@@ -620,7 +743,7 @@
             </div>
 
             <div id="pagination-controls" class="flex justify-center items-center gap-2 mt-16 flex-wrap">
-                </div>
+            </div>
 
             <div id="no-results" class="text-center py-24 hidden">
                 <h3 class="font-display text-3xl text-gray-400">No items found matching your filter/search.</h3>
@@ -633,9 +756,15 @@
     <footer class="bg-[#111] text-white pt-24 pb-12 px-6 border-t border-gray-800">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div class="col-span-1 md:col-span-1">
-                <a href="#" class="font-cinzel text-3xl tracking-widest block mb-6">Label Reeha</a>
+                <a href="#" class="flex items-center mb-6">
+                    <div class="logo-border">
+                        <img src="Assets/logo.jpeg" alt="Label Reeha"
+                            class="h-16 w-auto opacity-90 hover:opacity-100 transition-opacity">
+                    </div>
+                    <span class="brand-name text-lg">Label Reeha</span>
+                </a>
                 <p class="text-gray-400 text-sm leading-relaxed">
-                    Crafting eternal beauty for the modern soul. Based in Paris, worn worldwide.
+                    To share the spirit of Assam with the world “One handcrafted piece at a time
                 </p>
             </div>
 
@@ -657,7 +786,7 @@
                 <ul class="space-y-4 text-gray-400 text-sm">
                     <li><a href="About.html" class="hover:text-white transition-colors hover-trigger">Our Story</a></li>
                     <li><a href="Shop.html" class="hover:text-white transition-colors hover-trigger">Shop</a></li>
-                    <li><a href="Reeha.html" class="hover:text-white transition-colors hover-trigger">Home</a></li>
+                    <li><a href="index.html" class="hover:text-white transition-colors hover-trigger">Home</a></li>
                     <li><a href="Contacts.html" class="hover:text-white transition-colors hover-trigger">Contact</a>
                     </li>
                 </ul>
@@ -665,13 +794,13 @@
 
             <div>
                 <h4 class="font-serif text-lg mb-6 text-[#D4AF37]">Connect</h4>
-                <div class="flex space-x-6 mb-6">
+                <div class="flex space-x-6 mb-6 text-xl">
                     <a href="#" class="hover:text-[#D4AF37] transition-colors hover-trigger"><i
-                            data-lucide="instagram"></i></a>
+                            class="fab fa-instagram"></i></a>
                     <a href="#" class="hover:text-[#D4AF37] transition-colors hover-trigger"><i
-                            data-lucide="facebook"></i></a>
+                            class="fab fa-facebook-f"></i></a>
                     <a href="#" class="hover:text-[#D4AF37] transition-colors hover-trigger"><i
-                            data-lucide="twitter"></i></a>
+                            class="fab fa-whatsapp"></i></a>
                 </div>
                 <p class="text-gray-500 text-xs">© 2026 Label Reeha Jewelry. All rights reserved.</p>
             </div>
@@ -679,18 +808,24 @@
     </footer>
 
     <div id="product-modal" class="fixed inset-0 z-50 hidden flex justify-center items-center bg-black/80">
-        <div class="relative w-full h-full md:w-auto md:h-auto max-w-5xl max-h-screen p-4 flex flex-col justify-center items-center">
-            
-            <button id="close-modal" class="absolute top-6 right-6 md:top-4 md:right-4 text-white hover:text-brand-gold z-50">
+        <div
+            class="relative w-full h-full md:w-auto md:h-auto max-w-5xl max-h-screen p-4 flex flex-col justify-center items-center">
+
+            <button id="close-modal"
+                class="absolute top-6 right-6 md:top-4 md:right-4 text-white hover:text-brand-gold z-50">
                 <i data-lucide="x" class="w-10 h-10"></i>
             </button>
 
-            <img id="modal-image" src="" alt="Zoomed Product" class="max-w-full max-h-[80vh] object-contain shadow-2xl rounded-sm">
+            <img id="modal-image" src="" alt="Zoomed Product"
+                class="max-w-full max-h-[80vh] object-contain shadow-2xl rounded-sm">
 
             <div class="flex space-x-6 mt-6 bg-white/10 backdrop-blur-md px-6 py-3 rounded-full border border-white/20">
-                <a href="#" class="icon-insta hover:scale-125 transition-transform hover-trigger" title="Instagram"><i class="fab fa-instagram text-3xl"></i></a>
-                <a href="#" class="icon-fb hover:scale-125 transition-transform hover-trigger" title="Facebook"><i class="fab fa-facebook text-3xl"></i></a>
-                <a href="#" class="icon-wa hover:scale-125 transition-transform hover-trigger" title="WhatsApp"><i class="fab fa-whatsapp text-3xl"></i></a>
+                <a href="#" class="icon-insta hover:scale-125 transition-transform hover-trigger" title="Instagram"><i
+                        class="fab fa-instagram text-3xl"></i></a>
+                <a href="#" class="icon-fb hover:scale-125 transition-transform hover-trigger" title="Facebook"><i
+                        class="fab fa-facebook text-3xl"></i></a>
+                <a href="#" class="icon-wa hover:scale-125 transition-transform hover-trigger" title="WhatsApp"><i
+                        class="fab fa-whatsapp text-3xl"></i></a>
             </div>
         </div>
     </div>
@@ -761,11 +896,11 @@
         const paginationContainer = document.getElementById('pagination-controls');
 
         // Settings
-        const itemsPerPage = 8; 
+        const itemsPerPage = 8;
         let currentPage = 1;
         let activeCategory = 'all';
         let searchTerm = '';
-        let matchedProducts = []; 
+        let matchedProducts = [];
 
         function updateProducts(resetPage = false) {
             if (resetPage) currentPage = 1;
@@ -788,7 +923,7 @@
 
             if (matchedProducts.length === 0) {
                 noResultsMessage.classList.remove('hidden');
-                paginationContainer.innerHTML = ''; 
+                paginationContainer.innerHTML = '';
                 return;
             } else {
                 noResultsMessage.classList.add('hidden');
@@ -800,7 +935,7 @@
 
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
-            
+
             const itemsToShow = matchedProducts.slice(startIndex, endIndex);
             itemsToShow.forEach(product => {
                 product.style.display = 'block';
@@ -827,7 +962,7 @@
                 btn.className = classes;
                 btn.addEventListener('click', () => {
                     currentPage = i;
-                    updateProducts(false); 
+                    updateProducts(false);
                     document.getElementById('product-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
                 paginationContainer.appendChild(btn);
@@ -841,13 +976,13 @@
                 tab.classList.remove('bg-white', 'text-brand-dark', 'border-gray-300');
                 tab.classList.add('active', 'bg-brand-dark', 'text-white', 'border-brand-dark');
                 activeCategory = tab.getAttribute('data-category');
-                updateProducts(true); 
+                updateProducts(true);
             });
         });
 
         searchInput.addEventListener('input', (e) => {
             searchTerm = e.target.value.trim();
-            updateProducts(true); 
+            updateProducts(true);
         });
 
         updateProducts(true);
@@ -858,7 +993,7 @@
         const closeModal = document.getElementById('close-modal');
 
         // Event Delegation for dynamically shown items
-        document.getElementById('product-grid').addEventListener('click', function(e) {
+        document.getElementById('product-grid').addEventListener('click', function (e) {
             // Check if the click happened inside an image container
             const trigger = e.target.closest('.product-image-trigger');
             if (trigger) {
@@ -866,10 +1001,10 @@
                 if (img) {
                     modalImg.src = img.src; // Set modal image source
                     modal.classList.remove('hidden'); // Show modal
-                    
+
                     // Hide Header
                     document.querySelector('.header').style.transform = 'translateY(-100%)';
-                    
+
                     gsap.fromTo(modalImg, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" });
                 }
             }
